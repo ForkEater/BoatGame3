@@ -73,84 +73,44 @@ public class TurnManager : MonoBehaviour
                         if (boat.speed == 4)
                         {
                             boat.Forward();
-                            if (!boat.hasCrashed && boat.CheckCollision())
-                            {
-                                boat.takeDamage();
-                                boat.hasCrashed = true;
-                            }
                         }
                         break;
                     case 4:
                         if (boat.speed == 3)
                         {
                             boat.Forward();
-                            if (!boat.hasCrashed && boat.CheckCollision())
-                            {
-                                boat.takeDamage();
-                                boat.hasCrashed = true;
-                            }
                         }
                         break;
                     case 6:
                         if (boat.speed == 2 || boat.speed == 4)
                         {
                             boat.Forward();
-                            if (!boat.hasCrashed && boat.CheckCollision())
-                            {
-                                boat.takeDamage();
-                                boat.hasCrashed = true;
-                            }
                         }
                         else if (boat.speed == -2)
                         {
                             boat.Backward();
-                            if (!boat.hasCrashed && boat.CheckCollision())
-                            {
-                                boat.takeDamage();
-                                boat.hasCrashed = true;
-                            }
                         }
                         break;
                     case 8:
                         if (boat.speed == 3)
                         {
                             boat.Forward();
-                            if (!boat.hasCrashed && boat.CheckCollision())
-                            {
-                                boat.takeDamage();
-                                boat.hasCrashed = true;
-                            }
                         }
                         break;
                     case 9:
                         if (boat.speed == 4)
                         {
                             boat.Forward();
-                            if (!boat.hasCrashed && boat.CheckCollision())
-                            {
-                                boat.takeDamage();
-                                boat.hasCrashed = true;
-                            }
                         }
                         break;
                     case 12:
                         if (boat.speed > 0)
                         {
                             boat.Forward();
-                            if (!boat.hasCrashed && boat.CheckCollision())
-                            {
-                                boat.takeDamage();
-                                boat.hasCrashed = true;
-                            }
                         }
                         else if (boat.speed < 0)
                         {
                             boat.Backward();
-                            if (!boat.hasCrashed && boat.CheckCollision())
-                            {
-                                boat.takeDamage();
-                                boat.hasCrashed = true;
-                            }
                         }
                         if (boat.commandQueue[0].commandType == BoatCommandType.RotateLeft)
                         {
@@ -162,16 +122,19 @@ public class TurnManager : MonoBehaviour
                         }
                         break;
                 }
+                if (!boat.hasCrashed && boat.CheckCollision())
+                {
+                    boat.takeDamage();
+                    boat.hasCrashed = true;
+                }
             }
-            //print("Step " + i + " complete");
             yield return new WaitForSeconds(pauseTime);
-            //print("Continuing to next step");
         }
         foreach (BoatController boat in boats)
         {
             boat.commandQueue.RemoveAt(0);
             boat.hasCrashed = false;
-            if (boat.CheckCollision())
+            if (boat.CheckCollision()) 
             {
                 boat.takeDamage();
                 boat.takeDamage();
@@ -187,6 +150,7 @@ public class TurnManager : MonoBehaviour
             boat.destroyBoat();
         }
         deadBoats.Clear();
+        yield return new WaitForSeconds(pauseTime*4);
         ordersOpen = true;
         foreach (BoatController boat in boats)
         {

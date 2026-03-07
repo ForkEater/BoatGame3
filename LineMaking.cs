@@ -40,7 +40,7 @@ public class LineMaking : MonoBehaviour
 
     void Update()
     {
-        if (boat == null || tilemap == null || !boat.Selected)
+        if (boat == null || tilemap == null || !boat.Selected || !TurnManager.Instance.ordersOpen)
         {
             foreach (var lr in lineRenderers) lr.positionCount = 0;
             if (arrowheadInstance) arrowheadInstance.SetActive(false);
