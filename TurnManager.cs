@@ -20,19 +20,24 @@ public class TurnManager : MonoBehaviour
         actions = new BoatActions();
         actions.Movement.Execute.performed += ctx =>
         {
-            foreach (BoatController boat in boats)
-            {
-                while (boat.commandQueue.Count < boat.maxCommands)
-                {
-                    boat.AddCommand(new BoatCommand(BoatCommandType.Nothing));
-                }
-            }
-            StartCoroutine(ExecuteTurn());
-            foreach (BoatController boat in boats)
+            callExecuteTurn(); 
+        };
+    }
+
+    public void callExecuteTurn()
+    {
+        foreach (BoatController boat in boats)
+        {
+            while (boat.commandQueue.Count < boat.maxCommands)
             {
                 boat.AddCommand(new BoatCommand(BoatCommandType.Nothing));
             }
-        };
+        }
+        StartCoroutine(ExecuteTurn());
+        foreach (BoatController boat in boats)
+        {
+            boat.AddCommand(new BoatCommand(BoatCommandType.Nothing));
+        }
     }
 
     private void OnEnable()
@@ -152,10 +157,6 @@ public class TurnManager : MonoBehaviour
         deadBoats.Clear();
         yield return new WaitForSeconds(pauseTime*4);
         ordersOpen = true;
-        foreach (BoatController boat in boats)
-        {
-            boat.AddCommand(new BoatCommand(BoatCommandType.Nothing));
-        }
     }
 
 }
