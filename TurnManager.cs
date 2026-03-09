@@ -37,16 +37,10 @@ public class TurnManager : MonoBehaviour
                 }
                 while(boat.fireQueue.Count < boat.maxFireCommands)
                 {
-                    
                     boat.AddFireCommand(new FireCommand(FireCommandType.Nothing));
                 }
             }
             StartCoroutine(ExecuteTurn());
-            foreach (BoatController boat in boats)
-            {
-                boat.AddCommand(new BoatCommand(BoatCommandType.Nothing));
-            //oat.fireQueue.Add(new FireCommand(FireCommandType.Nothing));
-            }
     }
 
     private void OnEnable()
@@ -59,12 +53,27 @@ public class TurnManager : MonoBehaviour
         actions.Disable();
     }
 
+    private void shoot(BoatController boat)
+    {
+        print("boat " + boat.name + " is checking fire commands");
+        if(boat.fireQueue.Count == 0 || boat.fireQueue[0].fireCommandType == FireCommandType.Nothing)
+        {
+            return;
+        }
+        FireCommand fire = boat.fireQueue[0];
+        if (fire.fireCommandType != FireCommandType.Nothing)
+        {
+            Combat.Instance.Fire(boat, fire);
+        }
+        print("boat " + boat.name + " is firing " + fire.fireCommandType);
+        Combat.Instance.Fire(boat, fire);
+    }
+
     public System.Collections.IEnumerator ExecuteTurn()
     {
         ordersOpen = false;
         for (int i = 1; i <= 12; i++)
         {
-            //print("Executing step " + i);
             foreach (BoatController boat in boats)
             {
                 switch (i)
@@ -83,34 +92,44 @@ public class TurnManager : MonoBehaviour
                         if (boat.speed == 4)
                         {
                             boat.Forward();
+                            shoot(boat);
                         }
                         break;
                     case 4:
                         if (boat.speed == 3)
                         {
                             boat.Forward();
+                            shoot(boat);
                         }
                         break;
                     case 6:
                         if (boat.speed == 2 || boat.speed == 4)
                         {
                             boat.Forward();
+                            shoot(boat);
                         }
                         else if (boat.speed == -2)
                         {
                             boat.Backward();
+                            shoot(boat);
+                        }
+                        else if (boat.speed == 0 || boat.speed == -1 || boat.speed == 1)
+                        {
+                            shoot(boat);
                         }
                         break;
                     case 8:
                         if (boat.speed == 3)
                         {
                             boat.Forward();
+                            shoot(boat);
                         }
                         break;
                     case 9:
                         if (boat.speed == 4)
                         {
                             boat.Forward();
+                            shoot(boat);
                         }
                         break;
                     case 12:
@@ -144,41 +163,21 @@ public class TurnManager : MonoBehaviour
         foreach (BoatController boat in boats)
         {
             boat.commandQueue.RemoveAt(0);
+            if (boat.fireQueue.Count > 0)
+            {
+                boat.fireQueue.RemoveAt(0);
+            }
             boat.hasCrashed = false;
-            
             if (boat.CheckCollision()) 
             {
                 boat.takeDamage();
                 boat.takeDamage();
             }
+            shoot(boat);
         }
-
-        //Firing
-        foreach (BoatController boat in boats)
-        {
-            print("boat " + boat.name + " is checking fire commands");
-            if(boat.fireQueue.Count == 0 || boat.fireQueue[0].fireCommandType == FireCommandType.Nothing)
-            {
-                continue;
-            }
-            print("boat " + boat.name + " has " + boat.fireQueue + " fire commands in queue");
-            FireCommand fire = boat.fireQueue[0];
-
-            print("boat " + boat.name + " is firing " + fire.fireCommandType);
-
-            Combat.Instance.Fire(boat, fire);
-
-        }
+                
         yield return new WaitForSeconds(pauseTime);
 
-
-        foreach (BoatController boat in boats)
-        {
-            if (boat.fireQueue.Count > 0)
-            {
-                boat.fireQueue.RemoveAt(0);
-            }
-        }
         foreach (BoatController boat in deadBoats)
         {
             if (BoatSelection.SelectedBoat == boat)
@@ -191,6 +190,11 @@ public class TurnManager : MonoBehaviour
         deadBoats.Clear();
         yield return new WaitForSeconds(pauseTime*4);
         ordersOpen = true;
+        foreach (BoatController boat in boats)
+        {
+            boat.AddCommand(new BoatCommand(BoatCommandType.Nothing));
+            boat.AddFireCommand(new FireCommand(FireCommandType.Nothing));
+        }
     }
 
 }

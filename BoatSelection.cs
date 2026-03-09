@@ -57,6 +57,10 @@ public class BoatSelection : MonoBehaviour
             {
                 int index = TurnManager.Instance.boats.IndexOf(SelectedBoat);
                 index = (index + 1) % TurnManager.Instance.boats.Count;
+                while (TurnManager.Instance.boats[index].isEvil)
+                {
+                    index = (index + 1) % TurnManager.Instance.boats.Count;
+                }
                 SelectBoat(TurnManager.Instance.boats[index]);
             }
         };

@@ -85,10 +85,10 @@ public class BoatController : MonoBehaviour
         facing = 3; 
         }
 
-    RotatePic();
-    SnapToGrid();
-    TurnManager.Instance.boats.Add(this);
-    boatImage = GetComponent<SpriteRenderer>();
+        RotatePic();
+        SnapToGrid();
+        TurnManager.Instance.boats.Add(this);
+        boatImage = GetComponent<SpriteRenderer>();
     }
     private void Awake()
     {
@@ -191,21 +191,17 @@ public class BoatController : MonoBehaviour
         print("boat " + name + " has " + hitPoints + " hit points remaining.");
         if (hitPoints <= 0)
         {
-           
             TurnManager.Instance.deadBoats.Add(this);
             tabOrders.setDestroyed();
         }
         else if (hitPoints == 1)
         {
-                    print("boat " + name + " has " + hitPoints + " hit points remaining.");
-
             tabOrders.setDamaged();
         }
     }
 
     public void destroyBoat()
     {
-        //TurnManager.Instance.boats.Remove(this);
         GameObject dead = Instantiate(TurnManager.Instance.deadBoatPrefab, transform.position, transform.rotation);
         Destroy(this, 0.1f);
         Destroy(dead, 2f);

@@ -11,12 +11,20 @@ public class DisplayOrders : MonoBehaviour
 	public GameObject rotateLeftArrow;
 	public GameObject rotateRightArrow;
     public GameObject nothingArrow;
+	public GameObject frontRightShot;
+	public GameObject frontLeftShot;
+	public GameObject backRightShot;
+	public GameObject backLeftShot;
+	public GameObject nothingShot;
+
 
 	public Transform arrowContainer;
+	public Transform shotContainer;
 
 	public float arrowSpacing = 40f;
 
 	private List<GameObject> arrows = new List<GameObject>();
+	private List<GameObject> shots = new List<GameObject>();
 
     private Image tabImage;
 	private bool destroyed = false;
@@ -28,21 +36,32 @@ public class DisplayOrders : MonoBehaviour
 
 	public void Update()
 	{
-		DestroyArrows();
+		DestroyDisplay();
 		if (!destroyed)
 		{
-			UpdateArrows(); 
+			UpdateArrows();
+			UpdateShots();
 		}
 	}
 
-	private void DestroyArrows()
+	private void DestroyDisplay()
 	{
 		foreach (var obj in arrows)
 		{
 			if (obj != null)
+			{
 				Destroy(obj);
+			}
 		}
 		arrows.Clear();
+		foreach (var obj in shots)
+		{
+			if (obj != null)
+			{
+				Destroy(obj);
+			}
+		}
+		shots.Clear();
 	}
     private void UpdateArrows()
     {
@@ -80,6 +99,42 @@ public class DisplayOrders : MonoBehaviour
 		}
     }
 
+	private void UpdateShots()
+    {
+		if (boat == null || boat.commandQueue == null)
+			return;
+
+		for (int i = 0; i < boat.fireQueue.Count; i++)
+		{
+			var command = boat.fireQueue[i];
+			GameObject fireDirection = null;
+			switch (command.fireCommandType)
+			{
+				case FireCommandType.FireFrontRight:
+					fireDirection = frontRightShot;
+					break;
+				case FireCommandType.FireFrontLeft:
+					fireDirection = frontLeftShot;
+					break;
+				case FireCommandType.FireBackRight:
+					fireDirection = backRightShot;
+					break;
+				case FireCommandType.FireBackLeft:
+					fireDirection = backLeftShot;
+					break;
+				case FireCommandType.Nothing:
+					fireDirection = nothingShot;
+					break;
+			}
+			if (fireDirection != null)
+			{
+				GameObject aim = Instantiate(fireDirection, shotContainer);
+				aim.transform.localPosition = new Vector3(0, -(i + 1) * arrowSpacing, 0);
+				shots.Add(aim);
+			}
+		}
+    }
+
     public void setDamaged()
     {
 		print("boat " + boat.name + " has been hit :(");
@@ -89,7 +144,8 @@ public class DisplayOrders : MonoBehaviour
 
     public void setDestroyed()
     {
-        boat.boatImage.color = new Color32(50,70,100,230);
+        boat.speed = 0;
+		boat.boatImage.color = new Color32(50,70,100,230);
         tabImage.color = new Color32(50,70,100,230);
 		destroyed = true;
     }
