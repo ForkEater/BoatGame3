@@ -30,22 +30,22 @@ public class BoatController : MonoBehaviour
     {
         if (TurnManager.Instance.ordersOpen)
         {
-            commandQueue.Add(command);
-            if (commandQueue.Count > maxCommands)
+            if (commandQueue.Count >= maxCommands)
             {
                 commandQueue.RemoveAt(maxCommands-1);
             }
+            commandQueue.Add(command);
         }
     }
     public void AddFireCommand(FireCommand command)
     {
         if (TurnManager.Instance.ordersOpen)
         {
-            fireQueue.Add(command);
-            if (fireQueue.Count > maxFireCommands)
+            if (fireQueue.Count >= maxFireCommands)
             {
                 fireQueue.RemoveAt(maxFireCommands-1);
             }
+            fireQueue.Add(command);
         }
 
     }
@@ -77,7 +77,6 @@ public class BoatController : MonoBehaviour
         new Vector3Int(1, -1, 0),    
     };
 
-
     void Start()
     {
         SnapToGrid(); 
@@ -90,8 +89,6 @@ public class BoatController : MonoBehaviour
     SnapToGrid();
     TurnManager.Instance.boats.Add(this);
     boatImage = GetComponent<SpriteRenderer>();
-        TurnManager.Instance.boats.Add(this);
-        boatImage = GetComponent<SpriteRenderer>();
     }
     private void Awake()
     {
@@ -101,7 +98,6 @@ public class BoatController : MonoBehaviour
     public void SetSelected(bool selected)
     {
         Selected = selected;
-        // Change color or something to indicate selection later
     }
     
     private void OnEnable()

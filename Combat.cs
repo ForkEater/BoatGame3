@@ -4,6 +4,8 @@ public class Combat : MonoBehaviour
 {
     public static Combat Instance;
 
+    public int firingRange = 3;
+
     void Awake()
     {
         Instance = this;
@@ -19,7 +21,7 @@ public class Combat : MonoBehaviour
         }
         
         Vector3Int cell = boat.currentCell;
-        for(int i = 0; i<3; i++) // chang e this loop var to adjust range
+        for(int i = 0; i<firingRange; i++) // change this loop var to adjust range
         {
             var dirs = boat.GetDirs(cell.y);
             cell+=dirs[dir];

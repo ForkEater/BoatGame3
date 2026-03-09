@@ -26,6 +26,9 @@ public class TurnManager : MonoBehaviour
 
     public void callExecuteTurn()
     {
+        if (!ordersOpen){
+            return;
+        }
         foreach (BoatController boat in boats)
             {
                 while (boat.commandQueue.Count < boat.maxCommands)
@@ -57,10 +60,6 @@ public class TurnManager : MonoBehaviour
 
     public System.Collections.IEnumerator ExecuteTurn()
     {
-        if (!ordersOpen)
-        {
-            yield break;
-        }
         ordersOpen = false;
         for (int i = 1; i <= 12; i++)
         {
@@ -139,24 +138,8 @@ public class TurnManager : MonoBehaviour
                 }
             }
             yield return new WaitForSeconds(pauseTime);
-
-            //Firing
-            foreach (BoatController boat in boats)
-            {
-                if(boat.fireQueue.Count == 0)
-                {
-                    continue;
-                }
-
-                FireCommand fire = boat.fireQueue[0];
-                if (fire.fireCommandType != FireCommandType.Nothing)
-                {
-
-                    Combat.Instance.Fire(boat, fire);
-                }
-            }
-            yield return new WaitForSeconds(pauseTime);
         }
+        
         foreach (BoatController boat in boats)
         {
             boat.commandQueue.RemoveAt(0);
@@ -171,6 +154,24 @@ public class TurnManager : MonoBehaviour
                 boat.takeDamage();
             }
         }
+
+        //Firing
+        foreach (BoatController boat in boats)
+        {
+            if(boat.fireQueue.Count == 0)
+            {
+                continue;
+            }
+
+            FireCommand fire = boat.fireQueue[0];
+            if (fire.fireCommandType != FireCommandType.Nothing)
+            {
+
+                Combat.Instance.Fire(boat, fire);
+            }
+        }
+        yield return new WaitForSeconds(pauseTime);
+
         foreach (BoatController boat in deadBoats)
         {
             if (BoatSelection.SelectedBoat == boat)
