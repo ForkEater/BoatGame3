@@ -10,6 +10,8 @@ public class TurnManager : MonoBehaviour
     public bool ordersOpen = true;
 
     public List<BoatController> boats = new List<BoatController>();
+    public List<BoatController> goodBoats = new List<BoatController>();
+    public List<BoatController> evilBoats = new List<BoatController>();
     public List<BoatController> deadBoats = new List<BoatController>();
     public GameObject deadBoatPrefab;
 
@@ -55,7 +57,7 @@ public class TurnManager : MonoBehaviour
 
     private void shoot(BoatController boat)
     {
-        if(boat.fireQueue.Count == 0 || boat.fireQueue[0].fireCommandType == FireCommandType.Nothing)
+        if(boat.fireQueue.Count == 0)
         {
             return;
         }
@@ -64,7 +66,6 @@ public class TurnManager : MonoBehaviour
         {
             Combat.Instance.Fire(boat, fire);
         }
-        Combat.Instance.Fire(boat, fire);
     }
 
     public System.Collections.IEnumerator ExecuteTurn()
@@ -160,11 +161,7 @@ public class TurnManager : MonoBehaviour
         
         foreach (BoatController boat in boats)
         {
-            boat.commandQueue.RemoveAt(0);
-            if (boat.fireQueue.Count > 0)
-            {
-                boat.fireQueue.RemoveAt(0);
-            }
+
             boat.hasCrashed = false;
             if (boat.CheckCollision()) 
             {
@@ -172,6 +169,11 @@ public class TurnManager : MonoBehaviour
                 boat.takeDamage();
             }
             shoot(boat);
+            boat.commandQueue.RemoveAt(0);
+            if (boat.fireQueue.Count > 0)
+            {
+                boat.fireQueue.RemoveAt(0);
+            }
         }
                 
         yield return new WaitForSeconds(pauseTime);
@@ -188,10 +190,11 @@ public class TurnManager : MonoBehaviour
         deadBoats.Clear();
         yield return new WaitForSeconds(pauseTime*4);
         ordersOpen = true;
+        print("Turn over");
         foreach (BoatController boat in boats)
         {
             boat.AddCommand(new BoatCommand(BoatCommandType.Nothing));
-            //boat.AddFireCommand(new FireCommand(FireCommandType.Nothing));
+            boat.AddFireCommand(new FireCommand(FireCommandType.Nothing));
         }
     }
 

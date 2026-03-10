@@ -3,11 +3,20 @@ using UnityEngine.InputSystem;
 
 public class BoatSelection : MonoBehaviour
 {
+    public static BoatSelection Instance;
     private BoatActions actions;
     public static BoatController SelectedBoat;
+    public enum Turn { Good, Evil, Neither };
+
+    public Turn currentTurn;
 
     public void SelectBoat(BoatController boat)
     {
+        if (boat == null)
+        {
+            SelectedBoat = null;
+            return;
+        }
         for (int i = 0; i < TurnManager.Instance.boats.Count; i++)
         {
             TurnManager.Instance.boats[i].SetSelected(false);
@@ -46,23 +55,13 @@ public class BoatSelection : MonoBehaviour
 
     private void Awake()
     {
+        Instance = this;
+
+
         actions = new BoatActions();
         actions.Movement.Tab.performed += ctx =>
         {
-            if (SelectedBoat == null)
-            {
-                SelectBoat(TurnManager.Instance.boats[0]);
-            }
-            else
-            {
-                int index = TurnManager.Instance.boats.IndexOf(SelectedBoat);
-                index = (index + 1) % TurnManager.Instance.boats.Count;
-                while (TurnManager.Instance.boats[index].isEvil)
-                {
-                    index = (index + 1) % TurnManager.Instance.boats.Count;
-                }
-                SelectBoat(TurnManager.Instance.boats[index]);
-            }
+            selectNextBoat();
         };
         
         actions.Movement.Move.performed += ctx =>
@@ -72,7 +71,6 @@ public class BoatSelection : MonoBehaviour
             if (input.y > 0) SelectedBoat.AddCommand(new BoatCommand(BoatCommandType.Forward));
             if (input.y < 0) SelectedBoat.AddCommand(new BoatCommand(BoatCommandType.Backward));
         };
-
         actions.Movement.Rotation.performed += ctx =>
         {
             if (SelectedBoat == null) return;
@@ -80,12 +78,102 @@ public class BoatSelection : MonoBehaviour
             if (input.x > 0) SelectedBoat.AddCommand(new BoatCommand(BoatCommandType.RotateRight));
             if (input.x < 0) SelectedBoat.AddCommand(new BoatCommand(BoatCommandType.RotateLeft));
         };
-
         actions.Movement.NoAction.performed += ctx =>
         {
             if (SelectedBoat == null) return;
             SelectedBoat.AddCommand(new BoatCommand(BoatCommandType.Nothing));
         };
+
+
+        actions.Movement.ShootFR.performed += ctx =>
+        {
+            if (SelectedBoat == null) return;
+            SelectedBoat.AddFireCommand(new FireCommand(FireCommandType.FireFrontRight));
+        };
+        actions.Movement.ShootFL.performed += ctx =>
+        {
+            if (SelectedBoat == null) return;
+            SelectedBoat.AddFireCommand(new FireCommand(FireCommandType.FireFrontLeft));
+        };
+        actions.Movement.ShootBR.performed += ctx =>
+        {
+            if (SelectedBoat == null) return;
+            SelectedBoat.AddFireCommand(new FireCommand(FireCommandType.FireBackRight));
+        };
+        actions.Movement.ShootBL.performed += ctx =>
+        {
+            if (SelectedBoat == null) return;
+            SelectedBoat.AddFireCommand(new FireCommand(FireCommandType.FireBackLeft));
+        };
+        actions.Movement.NoShoot.performed += ctx =>
+        {
+            if (SelectedBoat == null) return;
+            SelectedBoat.AddFireCommand(new FireCommand(FireCommandType.Nothing));
+        };
+
+        
+        actions.Movement.ChangeTurn.performed += ctx =>
+        {
+            changeTurn();
+        };
+    }
+
+    public void selectNextBoat()
+    {
+        if (SelectedBoat == null)
+        {
+            if (currentTurn == Turn.Evil)
+            {
+                SelectBoat(TurnManager.Instance.evilBoats[0]);
+            } else
+            {
+                SelectBoat(TurnManager.Instance.goodBoats[0]);
+            }
+            
+        }
+        else
+        {
+            if (currentTurn == Turn.Evil)
+            {
+                if (!SelectedBoat.isEvil)
+                {
+                    SelectBoat(TurnManager.Instance.evilBoats[0]);
+                } else
+                {
+                    int index = TurnManager.Instance.evilBoats.IndexOf(SelectedBoat);
+                    index = (index + 1) % TurnManager.Instance.evilBoats.Count;
+                    SelectBoat(TurnManager.Instance.evilBoats[index]);
+                }
+            } else
+            {
+                if (SelectedBoat.isEvil)
+                {
+                    SelectBoat(TurnManager.Instance.goodBoats[0]);
+                } else
+                {
+                    int index = TurnManager.Instance.goodBoats.IndexOf(SelectedBoat);
+                    index = (index + 1) % TurnManager.Instance.goodBoats.Count;
+                    SelectBoat(TurnManager.Instance.goodBoats[index]);
+                }
+            }
+        }
+    }
+
+    public void changeTurn()
+    {
+        if (currentTurn==Turn.Good)
+        {
+            currentTurn = Turn.Evil;
+            SelectBoat(TurnManager.Instance.evilBoats[0]);
+        } else if (currentTurn==Turn.Evil)
+        {
+            currentTurn = Turn.Neither;
+            SelectBoat(null);
+        } else if (currentTurn==Turn.Neither)
+        {
+            currentTurn = Turn.Good;
+            SelectBoat(TurnManager.Instance.goodBoats[0]);
+        }
     }
 
     private void OnEnable()
