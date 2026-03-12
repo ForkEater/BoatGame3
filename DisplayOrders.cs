@@ -37,9 +37,9 @@ public class DisplayOrders : MonoBehaviour
 	public void Update()
 	{
 		DestroyDisplay();
-		if (!destroyed)
+		if (!destroyed && ((boat.isEvil && BoatSelection.Instance.currentTurn == BoatSelection.Turn.Evil) || (!boat.isEvil && BoatSelection.Instance.currentTurn == BoatSelection.Turn.Good)))
 		{
-			UpdateArrows();
+			UpdateArrows(); 
 			UpdateShots();
 		}
 	}

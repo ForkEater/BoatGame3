@@ -145,6 +145,60 @@ public partial class @BoatActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ShootFR"",
+                    ""type"": ""Button"",
+                    ""id"": ""20579396-fc2b-4e99-9699-690930eeac48"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ShootFL"",
+                    ""type"": ""Button"",
+                    ""id"": ""5a63d157-ef41-4eb3-b3eb-6a7be03ef15f"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ShootBR"",
+                    ""type"": ""Button"",
+                    ""id"": ""17a59c76-9899-4f38-b17c-fa8894922875"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ShootBL"",
+                    ""type"": ""Button"",
+                    ""id"": ""bd15c11b-6303-4624-ace3-b65df7c126fd"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""NoShoot"",
+                    ""type"": ""Button"",
+                    ""id"": ""e1965b2a-6465-41d3-b4c2-c8edd45ee571"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ChangeTurn"",
+                    ""type"": ""Button"",
+                    ""id"": ""dbb15d27-3d0d-483c-b771-8dded7311374"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -255,6 +309,72 @@ public partial class @BoatActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""NoAction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f806b2ab-29c0-41de-942f-897087b2e721"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShootFR"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8c2b8b68-9088-4861-a95d-e5a804515f27"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShootFL"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""24f72e3a-4b3f-4248-83ed-6b41c2a0857c"",
+                    ""path"": ""<Keyboard>/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShootBR"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""26e2310c-553e-4990-a398-556112e0daf5"",
+                    ""path"": ""<Keyboard>/z"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShootBL"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ab35bef5-fbfc-4783-b935-39828a2c2303"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NoShoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a0ed9bb5-3faf-4a90-b0fd-8dc6f7541af4"",
+                    ""path"": ""<Keyboard>/rightShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ChangeTurn"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -385,6 +505,12 @@ public partial class @BoatActions: IInputActionCollection2, IDisposable
         m_Movement_Tab = m_Movement.FindAction("Tab", throwIfNotFound: true);
         m_Movement_Execute = m_Movement.FindAction("Execute", throwIfNotFound: true);
         m_Movement_NoAction = m_Movement.FindAction("NoAction", throwIfNotFound: true);
+        m_Movement_ShootFR = m_Movement.FindAction("ShootFR", throwIfNotFound: true);
+        m_Movement_ShootFL = m_Movement.FindAction("ShootFL", throwIfNotFound: true);
+        m_Movement_ShootBR = m_Movement.FindAction("ShootBR", throwIfNotFound: true);
+        m_Movement_ShootBL = m_Movement.FindAction("ShootBL", throwIfNotFound: true);
+        m_Movement_NoShoot = m_Movement.FindAction("NoShoot", throwIfNotFound: true);
+        m_Movement_ChangeTurn = m_Movement.FindAction("ChangeTurn", throwIfNotFound: true);
         // Combat
         m_Combat = asset.FindActionMap("Combat", throwIfNotFound: true);
         m_Combat_FireFrontLeft = m_Combat.FindAction("FireFrontLeft", throwIfNotFound: true);
@@ -479,6 +605,12 @@ public partial class @BoatActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Movement_Tab;
     private readonly InputAction m_Movement_Execute;
     private readonly InputAction m_Movement_NoAction;
+    private readonly InputAction m_Movement_ShootFR;
+    private readonly InputAction m_Movement_ShootFL;
+    private readonly InputAction m_Movement_ShootBR;
+    private readonly InputAction m_Movement_ShootBL;
+    private readonly InputAction m_Movement_NoShoot;
+    private readonly InputAction m_Movement_ChangeTurn;
     /// <summary>
     /// Provides access to input actions defined in input action map "Movement".
     /// </summary>
@@ -514,6 +646,30 @@ public partial class @BoatActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Movement/NoAction".
         /// </summary>
         public InputAction @NoAction => m_Wrapper.m_Movement_NoAction;
+        /// <summary>
+        /// Provides access to the underlying input action "Movement/ShootFR".
+        /// </summary>
+        public InputAction @ShootFR => m_Wrapper.m_Movement_ShootFR;
+        /// <summary>
+        /// Provides access to the underlying input action "Movement/ShootFL".
+        /// </summary>
+        public InputAction @ShootFL => m_Wrapper.m_Movement_ShootFL;
+        /// <summary>
+        /// Provides access to the underlying input action "Movement/ShootBR".
+        /// </summary>
+        public InputAction @ShootBR => m_Wrapper.m_Movement_ShootBR;
+        /// <summary>
+        /// Provides access to the underlying input action "Movement/ShootBL".
+        /// </summary>
+        public InputAction @ShootBL => m_Wrapper.m_Movement_ShootBL;
+        /// <summary>
+        /// Provides access to the underlying input action "Movement/NoShoot".
+        /// </summary>
+        public InputAction @NoShoot => m_Wrapper.m_Movement_NoShoot;
+        /// <summary>
+        /// Provides access to the underlying input action "Movement/ChangeTurn".
+        /// </summary>
+        public InputAction @ChangeTurn => m_Wrapper.m_Movement_ChangeTurn;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -558,6 +714,24 @@ public partial class @BoatActions: IInputActionCollection2, IDisposable
             @NoAction.started += instance.OnNoAction;
             @NoAction.performed += instance.OnNoAction;
             @NoAction.canceled += instance.OnNoAction;
+            @ShootFR.started += instance.OnShootFR;
+            @ShootFR.performed += instance.OnShootFR;
+            @ShootFR.canceled += instance.OnShootFR;
+            @ShootFL.started += instance.OnShootFL;
+            @ShootFL.performed += instance.OnShootFL;
+            @ShootFL.canceled += instance.OnShootFL;
+            @ShootBR.started += instance.OnShootBR;
+            @ShootBR.performed += instance.OnShootBR;
+            @ShootBR.canceled += instance.OnShootBR;
+            @ShootBL.started += instance.OnShootBL;
+            @ShootBL.performed += instance.OnShootBL;
+            @ShootBL.canceled += instance.OnShootBL;
+            @NoShoot.started += instance.OnNoShoot;
+            @NoShoot.performed += instance.OnNoShoot;
+            @NoShoot.canceled += instance.OnNoShoot;
+            @ChangeTurn.started += instance.OnChangeTurn;
+            @ChangeTurn.performed += instance.OnChangeTurn;
+            @ChangeTurn.canceled += instance.OnChangeTurn;
         }
 
         /// <summary>
@@ -587,6 +761,24 @@ public partial class @BoatActions: IInputActionCollection2, IDisposable
             @NoAction.started -= instance.OnNoAction;
             @NoAction.performed -= instance.OnNoAction;
             @NoAction.canceled -= instance.OnNoAction;
+            @ShootFR.started -= instance.OnShootFR;
+            @ShootFR.performed -= instance.OnShootFR;
+            @ShootFR.canceled -= instance.OnShootFR;
+            @ShootFL.started -= instance.OnShootFL;
+            @ShootFL.performed -= instance.OnShootFL;
+            @ShootFL.canceled -= instance.OnShootFL;
+            @ShootBR.started -= instance.OnShootBR;
+            @ShootBR.performed -= instance.OnShootBR;
+            @ShootBR.canceled -= instance.OnShootBR;
+            @ShootBL.started -= instance.OnShootBL;
+            @ShootBL.performed -= instance.OnShootBL;
+            @ShootBL.canceled -= instance.OnShootBL;
+            @NoShoot.started -= instance.OnNoShoot;
+            @NoShoot.performed -= instance.OnNoShoot;
+            @NoShoot.canceled -= instance.OnNoShoot;
+            @ChangeTurn.started -= instance.OnChangeTurn;
+            @ChangeTurn.performed -= instance.OnChangeTurn;
+            @ChangeTurn.canceled -= instance.OnChangeTurn;
         }
 
         /// <summary>
@@ -822,6 +1014,48 @@ public partial class @BoatActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnNoAction(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ShootFR" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnShootFR(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ShootFL" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnShootFL(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ShootBR" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnShootBR(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ShootBL" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnShootBL(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "NoShoot" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnNoShoot(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ChangeTurn" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnChangeTurn(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Combat" which allows adding and removing callbacks.

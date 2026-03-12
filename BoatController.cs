@@ -49,7 +49,7 @@ public class BoatController : MonoBehaviour
         }
 
     }
-    private BoatActions actions;
+    private BoatActions actions; 
     /* 
     0 = Top
     1 = Top right
@@ -82,13 +82,20 @@ public class BoatController : MonoBehaviour
         SnapToGrid(); 
         if (isEvil)
         {
-        facing = 3; 
+            facing = 3;
+            TurnManager.Instance.evilBoats.Add(this);
+        } else
+        {
+            TurnManager.Instance.goodBoats.Add(this);
         }
 
         RotatePic();
         SnapToGrid();
         TurnManager.Instance.boats.Add(this);
         boatImage = GetComponent<SpriteRenderer>();
+        AddFireCommand(new FireCommand(FireCommandType.Nothing));
+        AddFireCommand(new FireCommand(FireCommandType.Nothing));
+        AddFireCommand(new FireCommand(FireCommandType.Nothing));
     }
     private void Awake()
     {
@@ -164,7 +171,7 @@ public class BoatController : MonoBehaviour
         transform.position = tilemap.GetCellCenterWorld(currentCell);
 
         print((currentCell.x, currentCell.y));
-        print("");
+        //print("");
         SnapToGrid();
     }
 
