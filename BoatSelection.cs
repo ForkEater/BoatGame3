@@ -9,6 +9,7 @@ public class BoatSelection : MonoBehaviour
     public enum Turn { Good, Evil, Neither };
 
     public Turn currentTurn;
+    public Turn previousTurn;
 
     public void SelectBoat(BoatController boat)
     {
@@ -161,15 +162,16 @@ public class BoatSelection : MonoBehaviour
 
     public void changeTurn()
     {
-        if (currentTurn==Turn.Good)
+        if (currentTurn != Turn.Neither)
+        {
+            previousTurn = currentTurn;
+            currentTurn = Turn.Neither;
+            SelectBoat(null);
+        } else if (currentTurn == Turn.Neither && previousTurn == Turn.Good)
         {
             currentTurn = Turn.Evil;
             SelectBoat(TurnManager.Instance.evilBoats[0]);
-        } else if (currentTurn==Turn.Evil)
-        {
-            currentTurn = Turn.Neither;
-            SelectBoat(null);
-        } else if (currentTurn==Turn.Neither)
+        } else if (currentTurn == Turn.Neither && previousTurn == Turn.Evil)
         {
             currentTurn = Turn.Good;
             SelectBoat(TurnManager.Instance.goodBoats[0]);

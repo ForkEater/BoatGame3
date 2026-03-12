@@ -185,6 +185,11 @@ public class TurnManager : MonoBehaviour
                 BoatSelection.SelectedBoat = null;
             }
             boats.Remove(boat);
+            if (boat.isEvil){
+                evilBoats.Remove(boat);
+            } else {
+                goodBoats.Remove(boat);
+            }
             boat.destroyBoat();
         }
         deadBoats.Clear();
