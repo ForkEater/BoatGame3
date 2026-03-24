@@ -1020,7 +1020,7 @@ MonoBehaviour:
   isEvil: 0
   tilemap: {fileID: 2040174029}
   currentCell: {x: -8, y: -5, z: 0}
-  speed: 0
+  speed: 3
   minSpeed: -2
   maxSpeed: 4
   commandQueue: []
@@ -4054,6 +4054,30 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 9e04a9fa-33a6-4b14-9308-4f7c79a510c4
     m_ActionName: 'Combat/NoFire[/Keyboard/x]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 20579396-fc2b-4e99-9699-690930eeac48
+    m_ActionName: 'Movement/ShootFR[/Keyboard/e]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5a63d157-ef41-4eb3-b3eb-6a7be03ef15f
+    m_ActionName: 'Movement/ShootFL[/Keyboard/q]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 17a59c76-9899-4f38-b17c-fa8894922875
+    m_ActionName: 'Movement/ShootBR[/Keyboard/x]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: bd15c11b-6303-4624-ace3-b65df7c126fd
+    m_ActionName: 'Movement/ShootBL[/Keyboard/z]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e1965b2a-6465-41d3-b4c2-c8edd45ee571
+    m_ActionName: 'Movement/NoShoot[/Keyboard/leftShift]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: dbb15d27-3d0d-483c-b771-8dded7311374
+    m_ActionName: 'Movement/ChangeTurn[/Keyboard/rightShift]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: BoatControls
   m_DefaultActionMap: Movement
@@ -4074,7 +4098,7 @@ MonoBehaviour:
   isEvil: 1
   tilemap: {fileID: 2040174029}
   currentCell: {x: 8, y: 5, z: 0}
-  speed: 0
+  speed: 3
   minSpeed: -2
   maxSpeed: 4
   commandQueue: []
@@ -4573,7 +4597,7 @@ MonoBehaviour:
   isEvil: 0
   tilemap: {fileID: 2040174029}
   currentCell: {x: -9, y: 0, z: 0}
-  speed: 0
+  speed: 3
   minSpeed: -2
   maxSpeed: 4
   commandQueue: []
@@ -5006,6 +5030,30 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 9e04a9fa-33a6-4b14-9308-4f7c79a510c4
     m_ActionName: 'Combat/NoFire[/Keyboard/x]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 20579396-fc2b-4e99-9699-690930eeac48
+    m_ActionName: 'Movement/ShootFR[/Keyboard/e]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5a63d157-ef41-4eb3-b3eb-6a7be03ef15f
+    m_ActionName: 'Movement/ShootFL[/Keyboard/q]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 17a59c76-9899-4f38-b17c-fa8894922875
+    m_ActionName: 'Movement/ShootBR[/Keyboard/x]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: bd15c11b-6303-4624-ace3-b65df7c126fd
+    m_ActionName: 'Movement/ShootBL[/Keyboard/z]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e1965b2a-6465-41d3-b4c2-c8edd45ee571
+    m_ActionName: 'Movement/NoShoot[/Keyboard/leftShift]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: dbb15d27-3d0d-483c-b771-8dded7311374
+    m_ActionName: 'Movement/ChangeTurn[/Keyboard/rightShift]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: BoatControls
   m_DefaultActionMap: Movement
@@ -5026,7 +5074,7 @@ MonoBehaviour:
   isEvil: 0
   tilemap: {fileID: 2040174029}
   currentCell: {x: -8, y: 5, z: 0}
-  speed: 0
+  speed: 3
   minSpeed: -2
   maxSpeed: 4
   commandQueue: []
@@ -5380,7 +5428,7 @@ MonoBehaviour:
   isEvil: 1
   tilemap: {fileID: 2040174029}
   currentCell: {x: 8, y: -5, z: 0}
-  speed: 0
+  speed: 3
   minSpeed: -2
   maxSpeed: 4
   commandQueue: []
@@ -5869,7 +5917,7 @@ MonoBehaviour:
   isEvil: 1
   tilemap: {fileID: 2040174029}
   currentCell: {x: 9, y: 0, z: 0}
-  speed: 0
+  speed: 3
   minSpeed: -2
   maxSpeed: 4
   commandQueue: []
@@ -7328,7 +7376,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 240af1c9762f89348a6b395d056d76f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TurnManager
-  gameMode: 1
   pauseTime: 0.1
   ordersOpen: 1
   boats: []

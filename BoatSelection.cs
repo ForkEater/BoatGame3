@@ -8,7 +8,7 @@ public class BoatSelection : MonoBehaviour
     public static BoatController SelectedBoat;
     public enum Turn { Good, Evil, Neither };
 
-    public Turn currentTurn;
+    public Turn currentTurn = Turn.Good;
     public Turn previousTurn;
 
     public void SelectBoat(BoatController boat)
@@ -115,6 +115,10 @@ public class BoatSelection : MonoBehaviour
         
         actions.Movement.ChangeTurn.performed += ctx =>
         {
+            if (TurnManager.Instance.gameMode == gameType.Singleplayer)
+            {
+                return;
+            }
             changeTurn();
         };
     }
@@ -162,6 +166,11 @@ public class BoatSelection : MonoBehaviour
 
     public void changeTurn()
     {
+        if (TurnManager.Instance.gameMode == gameType.Singleplayer)
+        {
+            currentTurn = Turn.Good; 
+            return;
+        }
         if (currentTurn != Turn.Neither)
         {
             previousTurn = currentTurn;
