@@ -7,7 +7,7 @@ Overview:
 Run when execute button is pressed; add enemy ai orders when players ahve been submitted
 
 Check each possible command it can enter; 
-- If it would hit an island or collide with another boat, ignore (if all commands would do so, have harm-minimization (if you have 1 hp & sinking 2hp enemy, do that, etc.))
+- If it would hit an island or collide with another boat, continue (if all commands would do so, have harm-minimization (if you have 1 hp & sinking 2hp enemy, do that, etc.))
 - If a move would let you shoot an enemy boat, do that (bonus if you hit more enemy boats), unless you would hit one of your own boats (unless you are hitting more enemies than allies kind of thing)
 - If can't hit any enemies, choose move that will face you towards the closest enemy boat (except straight-on; if you are close enough to the enemy we want to turn to broadside). 
   - If straight ahead, accelerate unless doing so would force you to crash 
