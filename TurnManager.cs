@@ -1,10 +1,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum gameType
+{
+    Singleplayer,
+    LocalMultiplayer, 
+    LANMultiplayer 
+}
+
 public class TurnManager : MonoBehaviour
 {
     public static TurnManager Instance;
     private BoatActions actions;
+    public gameType gameMode;
     public float pauseTime = 0.5f;
 
     public bool ordersOpen = true;
@@ -71,6 +79,15 @@ public class TurnManager : MonoBehaviour
     public System.Collections.IEnumerator ExecuteTurn()
     {
         ordersOpen = false;
+        if (gameMode == gameType.Singleplayer)
+        {
+            foreach (BoatController boat in evilBoats) 
+            {
+                (BoatCommand move, FireCommand shoot) = EnemyPathfinding.chooseCommand(boat); 
+                boat.AddCommand(move);
+                boat.AddFireCommand(shoot); 
+            }
+        }
         for (int i = 1; i <= 12; i++)
         {
             foreach (BoatController boat in boats)
@@ -195,7 +212,7 @@ public class TurnManager : MonoBehaviour
         deadBoats.Clear();
         yield return new WaitForSeconds(pauseTime*4);
         ordersOpen = true;
-        print("Turn over");
+        //print("Turn over");
         foreach (BoatController boat in boats)
         {
             boat.AddCommand(new BoatCommand(BoatCommandType.Nothing));
