@@ -6,10 +6,9 @@ public class MainMenu : MonoBehaviour
 {
     public void SinglePlayer()
     {
-        return;
-        //SceneManager.LoadScene("SinglePlayer");
+        SceneManager.LoadScene("Singleplayer");
     }
-    public void MPLocal()
+    public void MPLocal() 
     {
         SceneManager.LoadScene("BAREMP");
     }

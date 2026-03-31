@@ -2,18 +2,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.InputSystem;
-using System.Collections;
-
-
 public class BoatController : MonoBehaviour
 {
     public bool isEvil;
     public Tilemap tilemap;
     public Vector3Int currentCell;  // current pos
-
-
-    public GameObject projectilePrefab;
-    public Transform firePoint;
 
     private int facing = 0;         // Facing Dir    
 
@@ -33,7 +26,7 @@ public class BoatController : MonoBehaviour
     public DisplayOrders tabOrders;
     public SpriteRenderer boatImage;
 
-     public void AddCommand(BoatCommand command)
+    public void AddCommand(BoatCommand command)
     {
         if (TurnManager.Instance.ordersOpen)
         {
@@ -54,8 +47,8 @@ public class BoatController : MonoBehaviour
             }
             fireQueue.Add(command);
         }
-    }
 
+    }
     private BoatActions actions; 
     /* 
     0 = Top
@@ -65,7 +58,7 @@ public class BoatController : MonoBehaviour
     4 = bottom left
     5 = top left
     */
-    private readonly Vector3Int[] evenDirs = new Vector3Int[]
+    private static readonly Vector3Int[] evenDirs = new Vector3Int[]
     {
         new Vector3Int(1, 0, 0),    
         new Vector3Int(0, 1, 0),    
@@ -74,7 +67,7 @@ public class BoatController : MonoBehaviour
         new Vector3Int(-1, -1, 0),   
         new Vector3Int(0, -1, 0)    
     };
-    private readonly Vector3Int[] oddDirs = new Vector3Int[]
+    private static readonly Vector3Int[] oddDirs = new Vector3Int[]
     {
         new Vector3Int(1, 0, 0),    
         new Vector3Int(1, 1, 0),   
@@ -157,7 +150,7 @@ public class BoatController : MonoBehaviour
         RotatePic();
     }
 
-    private Vector3Int[] getDirs()
+    public Vector3Int[] getDirs()
     {   
         if (currentCell.y % 2 == 0)
         {
@@ -177,8 +170,7 @@ public class BoatController : MonoBehaviour
         currentCell = targetCell;
         transform.position = tilemap.GetCellCenterWorld(currentCell);
 
-        print((currentCell.x, currentCell.y));
-        //print("");
+        // print((currentCell.x, currentCell.y));
         SnapToGrid();
     }
 
@@ -187,15 +179,19 @@ public class BoatController : MonoBehaviour
         transform.rotation = Quaternion.Euler(0,0,-facing*60f);
     }
 
-    public Vector3Int[] GetDirs(int y)
+    public static Vector3Int GetDirs(int y, int facing, int speed)
     {
+        if (speed < 0)
+        {
+            facing = (facing + 3) % 6;
+        }
         if (y % 2 == 0)
         {
-            return evenDirs;
+            return evenDirs[facing];
         }
         else
         {
-            return oddDirs;
+            return oddDirs[facing];
         }
     }
 
@@ -247,68 +243,5 @@ public class BoatController : MonoBehaviour
         }   
         return -1;
     }
-private bool isExecuting = false;  // tracks whether the boat is currently executing commands
-public bool IsExecuting => isExecuting; // read-only property for external checks
 
-public void StartExecution()
-{
-    if (!isExecuting)
-    {
-        StartCoroutine(ExecuteCommandsCoroutine());
-    }
-    else
-    {
-        Debug.Log($"{name} is already executing commands!");
-    }
 }
-
-private IEnumerator ExecuteCommandsCoroutine()
-{
-    isExecuting = true;
-
-    int steps = Mathf.Abs(speed); // total steps to execute
-
-    // Pad queues with "Nothing" if too short
-    while (commandQueue.Count < steps)
-        commandQueue.Add(new BoatCommand(BoatCommandType.Nothing));
-
-    while (fireQueue.Count < steps)
-        fireQueue.Add(new FireCommand(FireCommandType.Nothing));
-
-    for (int i = 0; i < steps; i++)
-    {
-        // --- Movement ---
-        BoatCommand cmd = commandQueue[i];
-
-        if (speed < 0)
-        {
-            if (cmd.commandType == BoatCommandType.Forward) cmd.commandType = BoatCommandType.Backward;
-            else if (cmd.commandType == BoatCommandType.Backward) cmd.commandType = BoatCommandType.Forward;
-        }
-
-        switch (cmd.commandType)
-        {
-            case BoatCommandType.Forward: Forward(); break;
-            case BoatCommandType.Backward: Backward(); break;
-            case BoatCommandType.RotateLeft: RotateLeft(); break;
-            case BoatCommandType.RotateRight: RotateRight(); break;
-            case BoatCommandType.Nothing: break;
-        }
-
-        // --- Optional Fire ---
-        FireCommand fire = fireQueue[i];
-        if (fire.fireCommandType != FireCommandType.Nothing)
-        {
-            Combat.Instance.Fire(this, fire);
-        }
-
-        yield return new WaitForSeconds(0.5f);
-    }
-
-    // --- Cleanup ---
-    commandQueue.Clear();
-    fireQueue.Clear();
-    isExecuting = false; // mark finished
-}
-}
-

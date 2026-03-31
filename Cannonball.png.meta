@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: b20f002a6c7ec8848a09ad1a5f253594
+guid: 3f7044649f1fa8c439bffa21f54fb11d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -9145237655635957927
-    second: Boat game 3 Sprites-2026-03-25-19-18 cannonball_0
+      213: 2960308106685272936
+    second: Cannonball_0
+  - first:
+      213: 1821577528106480166
+    second: Cannonball_1
+  - first:
+      213: -7256551710197058630
+    second: Cannonball_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +106,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Boat game 3 Sprites-2026-03-25-19-18 cannonball_0
+      name: Cannonball_0
       rect:
         serializedVersion: 2
-        x: 177
-        y: 426
-        width: 177
-        height: 195
+        x: 0
+        y: 0
+        width: 622
+        height: 632
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +121,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 957ea454ec6951180800000000000000
-      internalID: -9145237655635957927
+      spriteID: 8635fa4e980251920800000000000000
+      internalID: 2960308106685272936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cannonball_1
+      rect:
+        serializedVersion: 2
+        x: 614
+        y: 347
+        width: 8
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 622fe955c1b874910800000000000000
+      internalID: 1821577528106480166
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cannonball_2
+      rect:
+        serializedVersion: 2
+        x: 610
+        y: 222
+        width: 12
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab3737b9aac8b4b90800000000000000
+      internalID: -7256551710197058630
       vertices: []
       indices: 
       edges: []
@@ -135,7 +185,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Boat game 3 Sprites-2026-03-25-19-18 cannonball_0: -9145237655635957927
+      Cannonball_0: 2960308106685272936
+      Cannonball_1: 1821577528106480166
+      Cannonball_2: -7256551710197058630
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

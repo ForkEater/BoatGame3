@@ -651,52 +651,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 157789754}
   m_CullTransparentMesh: 1
---- !u!1 &161538670
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 161538672}
-  - component: {fileID: 161538671}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &161538671
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 161538670}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c1a91da44c019b4f825bcc0ab297210, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BoatPathfinder
-  tilemap: {fileID: 2040174029}
-  boat: {fileID: 0}
---- !u!4 &161538672
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 161538670}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &216866185
 GameObject:
   m_ObjectHideFlags: 0
@@ -1066,8 +1020,6 @@ MonoBehaviour:
   isEvil: 0
   tilemap: {fileID: 2040174029}
   currentCell: {x: -8, y: -5, z: 0}
-  projectilePrefab: {fileID: 0}
-  firePoint: {fileID: 0}
   speed: 0
   minSpeed: -2
   maxSpeed: 4
@@ -4102,30 +4054,6 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 9e04a9fa-33a6-4b14-9308-4f7c79a510c4
     m_ActionName: 'Combat/NoFire[/Keyboard/x]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 20579396-fc2b-4e99-9699-690930eeac48
-    m_ActionName: 'Movement/ShootFR[/Keyboard/e]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 5a63d157-ef41-4eb3-b3eb-6a7be03ef15f
-    m_ActionName: 'Movement/ShootFL[/Keyboard/q]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 17a59c76-9899-4f38-b17c-fa8894922875
-    m_ActionName: 'Movement/ShootBR[/Keyboard/x]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: bd15c11b-6303-4624-ace3-b65df7c126fd
-    m_ActionName: 'Movement/ShootBL[/Keyboard/z]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: e1965b2a-6465-41d3-b4c2-c8edd45ee571
-    m_ActionName: 'Movement/NoShoot[/Keyboard/leftShift]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: dbb15d27-3d0d-483c-b771-8dded7311374
-    m_ActionName: 'Movement/ChangeTurn[/Keyboard/rightShift]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: BoatControls
   m_DefaultActionMap: Movement
@@ -4146,8 +4074,6 @@ MonoBehaviour:
   isEvil: 1
   tilemap: {fileID: 2040174029}
   currentCell: {x: 8, y: 5, z: 0}
-  projectilePrefab: {fileID: 0}
-  firePoint: {fileID: 0}
   speed: 0
   minSpeed: -2
   maxSpeed: 4
@@ -4411,7 +4337,8 @@ Transform:
   m_LocalPosition: {x: -2.15876, y: 0.16739, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1909205808}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1033984672
@@ -4426,8 +4353,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab47e4994e2764413ab8e4e08ab4d2f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Combat
+  cannonballPrefab: {fileID: 1909205805}
   firingRange: 3
-  projectilePrefab: {fileID: 8314150255337579225, guid: e1e8e3669067a204e89bbed67104d75e, type: 3}
 --- !u!1 &1047809268
 GameObject:
   m_ObjectHideFlags: 0
@@ -4626,7 +4553,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1071665222}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.498, y: -0.627, z: 0}
   m_LocalScale: {x: 0.2, y: 0.2, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4648,8 +4575,6 @@ MonoBehaviour:
   isEvil: 0
   tilemap: {fileID: 2040174029}
   currentCell: {x: -9, y: 0, z: 0}
-  projectilePrefab: {fileID: 0}
-  firePoint: {fileID: 0}
   speed: 0
   minSpeed: -2
   maxSpeed: 4
@@ -5083,30 +5008,6 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 9e04a9fa-33a6-4b14-9308-4f7c79a510c4
     m_ActionName: 'Combat/NoFire[/Keyboard/x]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 20579396-fc2b-4e99-9699-690930eeac48
-    m_ActionName: 'Movement/ShootFR[/Keyboard/e]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 5a63d157-ef41-4eb3-b3eb-6a7be03ef15f
-    m_ActionName: 'Movement/ShootFL[/Keyboard/q]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 17a59c76-9899-4f38-b17c-fa8894922875
-    m_ActionName: 'Movement/ShootBR[/Keyboard/x]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: bd15c11b-6303-4624-ace3-b65df7c126fd
-    m_ActionName: 'Movement/ShootBL[/Keyboard/z]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: e1965b2a-6465-41d3-b4c2-c8edd45ee571
-    m_ActionName: 'Movement/NoShoot[/Keyboard/leftShift]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: dbb15d27-3d0d-483c-b771-8dded7311374
-    m_ActionName: 'Movement/ChangeTurn[/Keyboard/rightShift]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: BoatControls
   m_DefaultActionMap: Movement
@@ -5127,8 +5028,6 @@ MonoBehaviour:
   isEvil: 0
   tilemap: {fileID: 2040174029}
   currentCell: {x: -8, y: 5, z: 0}
-  projectilePrefab: {fileID: 0}
-  firePoint: {fileID: 0}
   speed: 0
   minSpeed: -2
   maxSpeed: 4
@@ -5483,8 +5382,6 @@ MonoBehaviour:
   isEvil: 1
   tilemap: {fileID: 2040174029}
   currentCell: {x: 8, y: -5, z: 0}
-  projectilePrefab: {fileID: 0}
-  firePoint: {fileID: 0}
   speed: 0
   minSpeed: -2
   maxSpeed: 4
@@ -5974,8 +5871,6 @@ MonoBehaviour:
   isEvil: 1
   tilemap: {fileID: 2040174029}
   currentCell: {x: 9, y: 0, z: 0}
-  projectilePrefab: {fileID: 0}
-  firePoint: {fileID: 0}
   speed: 0
   minSpeed: -2
   maxSpeed: 4
@@ -7435,6 +7330,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 240af1c9762f89348a6b395d056d76f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TurnManager
+  gameMode: 1
   pauseTime: 0.1
   ordersOpen: 1
   boats: []
@@ -7536,6 +7432,111 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1899488464}
   m_CullTransparentMesh: 1
+--- !u!1 &1909205805
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1909205808}
+  - component: {fileID: 1909205807}
+  - component: {fileID: 1909205806}
+  m_Layer: 0
+  m_Name: Cannonball
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1909205806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1909205805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13ea7e3342ad01e45b79c01023583b66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Projectile
+  speed: 2
+--- !u!212 &1909205807
+SpriteRenderer:
+  serializedVersion: 2
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1909205805}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_Sprite: {fileID: 2960308106685272936, guid: 3f7044649f1fa8c439bffa21f54fb11d, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 6.22, y: 6.32}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_SpriteSortPoint: 0
+--- !u!4 &1909205808
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1909205805}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -28, y: 285, z: 0}
+  m_LocalScale: {x: 0.03, y: 0.03, z: 0.099999994}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1033984671}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1911041784
 GameObject:
   m_ObjectHideFlags: 0
@@ -14050,4 +14051,3 @@ SceneRoots:
   - {fileID: 432294255}
   - {fileID: 720584298}
   - {fileID: 1033984671}
-  - {fileID: 161538672}
