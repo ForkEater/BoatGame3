@@ -58,7 +58,7 @@ public class BoatController : MonoBehaviour
     4 = bottom left
     5 = top left
     */
-    private readonly Vector3Int[] evenDirs = new Vector3Int[]
+    private static readonly Vector3Int[] evenDirs = new Vector3Int[]
     {
         new Vector3Int(1, 0, 0),    
         new Vector3Int(0, 1, 0),    
@@ -67,7 +67,7 @@ public class BoatController : MonoBehaviour
         new Vector3Int(-1, -1, 0),   
         new Vector3Int(0, -1, 0)    
     };
-    private readonly Vector3Int[] oddDirs = new Vector3Int[]
+    private static readonly Vector3Int[] oddDirs = new Vector3Int[]
     {
         new Vector3Int(1, 0, 0),    
         new Vector3Int(1, 1, 0),   
@@ -150,7 +150,7 @@ public class BoatController : MonoBehaviour
         RotatePic();
     }
 
-    private Vector3Int[] getDirs()
+    public Vector3Int[] getDirs()
     {   
         if (currentCell.y % 2 == 0)
         {
@@ -170,8 +170,7 @@ public class BoatController : MonoBehaviour
         currentCell = targetCell;
         transform.position = tilemap.GetCellCenterWorld(currentCell);
 
-        print((currentCell.x, currentCell.y));
-        //print("");
+        // print((currentCell.x, currentCell.y));
         SnapToGrid();
     }
 
@@ -180,15 +179,19 @@ public class BoatController : MonoBehaviour
         transform.rotation = Quaternion.Euler(0,0,-facing*60f);
     }
 
-    public Vector3Int[] GetDirs(int y)
+    public static Vector3Int GetDirs(int y, int facing, int speed)
     {
+        if (speed < 0)
+        {
+            facing = (facing + 3) % 6;
+        }
         if (y % 2 == 0)
         {
-            return evenDirs;
+            return evenDirs[facing];
         }
         else
         {
-            return oddDirs;
+            return oddDirs[facing];
         }
     }
 
@@ -240,4 +243,5 @@ public class BoatController : MonoBehaviour
         }   
         return -1;
     }
+
 }

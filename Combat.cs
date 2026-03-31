@@ -4,6 +4,8 @@ public class Combat : MonoBehaviour
 {
     public static Combat Instance;
 
+    public GameObject cannonballPrefab;
+
     public int firingRange = 3;
 
     void Awake()
@@ -20,21 +22,32 @@ public class Combat : MonoBehaviour
             return;
         }
         Vector3Int cell = boat.currentCell;
-        for(int i = 0; i<firingRange; i++) // change this loop var to adjust range
+        for(int i = 0; i<firingRange; i++) 
         {
-            var dirs = boat.GetDirs(cell.y);
-            cell+=dirs[dir];
-            print("boat " + boat.name + "is firing to cell" + cell);
+            Vector3Int dirs = BoatController.GetDirs(cell.y, dir, 1);
+            cell+=dirs;
+            //print("boat " + boat.name + "is firing to cell" + cell);
             foreach (BoatController b in TurnManager.Instance.boats)
             {
                 if (b.currentCell == cell)
                 {
                     print("boat " +b.name + " has been hit :(");
                     b.takeDamage();
+                    SpawnProjectile(boat, cell);
                     return;
                 }
             }
-        }    
+        } 
+        SpawnProjectile(boat, cell);   
+    }
+
+    void SpawnProjectile(BoatController boat, Vector3 targetPos)
+    {
+        Vector3 spawn = boat.transform.position;
+        spawn.z = 0f;
+        Vector3 worldTarget = boat.tilemap.GetCellCenterWorld(Vector3Int.RoundToInt(targetPos));
+        GameObject proj = Instantiate(cannonballPrefab, spawn, Quaternion.identity);
+        Projectile projScript = proj.GetComponent<Projectile>();
+        projScript.Init(worldTarget);
     }
 }
-

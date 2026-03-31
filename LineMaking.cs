@@ -97,8 +97,8 @@ public class LineMaking : MonoBehaviour
                     int moveDir = simSpeed > 0 ? simFacing : (simFacing + 3) % 6;
                     for (int s = 0; s < moveSteps; s++)
                     {
-                        var dirs = boat.GetDirs(simCell.y);
-                        simCell += dirs[moveDir];
+                        Vector3Int dirs = BoatController.GetDirs(simCell.y, moveDir, simSpeed);
+                        simCell += dirs;
                         pathPoints.Add(tilemap.GetCellCenterWorld(simCell));
 
                         // Draw firing line for this movement step
@@ -128,8 +128,8 @@ public class LineMaking : MonoBehaviour
                                 firePoints.Add(tilemap.GetCellCenterWorld(fireCell));
                                 for (int f = 0; f < Combat.Instance.firingRange; f++)
                                 {
-                                    var fireDirs = boat.GetDirs(fireCell.y);
-                                    fireCell += fireDirs[fireDir];
+                                    var fireDirs = BoatController.GetDirs(fireCell.y, fireDir, 1);
+                                    fireCell += fireDirs;
                                     firePoints.Add(tilemap.GetCellCenterWorld(fireCell));
                                 }
                                 GameObject fireObj = new GameObject("FireLineStep" + i + "_" + s);

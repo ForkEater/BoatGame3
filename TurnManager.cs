@@ -1,10 +1,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum gameType
+{
+    Singleplayer,
+    LocalMultiplayer, 
+    LANMultiplayer 
+}
+
 public class TurnManager : MonoBehaviour
 {
     public static TurnManager Instance;
     private BoatActions actions;
+    public gameType gameMode;
     public float pauseTime = 0.5f;
 
     public bool ordersOpen = true;
@@ -31,7 +39,14 @@ public class TurnManager : MonoBehaviour
         if (!ordersOpen){
             return;
         }
-        foreach (BoatController boat in boats)
+        
+        if (gameMode == gameType.Singleplayer)
+        {
+            if (EnemyPathfinding.tilemap == null)
+            {
+                EnemyPathfinding.tilemap = boats[0].tilemap;
+            }
+            foreach (BoatController boat in goodBoats)
             {
                 while (boat.commandQueue.Count < boat.maxCommands)
                 {
@@ -42,7 +57,20 @@ public class TurnManager : MonoBehaviour
                     boat.AddFireCommand(new FireCommand(FireCommandType.Nothing));
                 }
             }
-            StartCoroutine(ExecuteTurn());
+        } else {
+            foreach (BoatController boat in boats)
+            {
+                while (boat.commandQueue.Count < boat.maxCommands)
+                {
+                    boat.AddCommand(new BoatCommand(BoatCommandType.Nothing));
+                }
+                while(boat.fireQueue.Count < boat.maxFireCommands)
+                {
+                    boat.AddFireCommand(new FireCommand(FireCommandType.Nothing));
+                }
+            }
+        }
+        StartCoroutine(ExecuteTurn());
     }
 
     private void OnEnable()
@@ -70,6 +98,10 @@ public class TurnManager : MonoBehaviour
 
     public System.Collections.IEnumerator ExecuteTurn()
     {
+        if (gameMode == gameType.Singleplayer)
+        {
+            EnemyPathfinding.collectEnemyOrders(evilBoats);
+        }
         ordersOpen = false;
         for (int i = 1; i <= 12; i++)
         {
@@ -195,7 +227,7 @@ public class TurnManager : MonoBehaviour
         deadBoats.Clear();
         yield return new WaitForSeconds(pauseTime*4);
         ordersOpen = true;
-        print("Turn over");
+        //print("Turn over");
         foreach (BoatController boat in boats)
         {
             boat.AddCommand(new BoatCommand(BoatCommandType.Nothing));
