@@ -4178,7 +4178,7 @@ MonoBehaviour:
   Selected: 0
   hasCrashed: 0
   hitPoints: 2
-  tabOrders: {fileID: 1272747332}
+  tabOrders: {fileID: 278306217}
   boatImage: {fileID: 983571844}
 --- !u!212 &983571844
 SpriteRenderer:

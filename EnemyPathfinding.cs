@@ -157,7 +157,7 @@ public class EnemyPathfinding: MonoBehaviour
                 }
             }
         }
-        print("No crashes");
+        //print("No crashes"); 
         return new List<BoatController>();
     }
 
@@ -184,6 +184,13 @@ public class EnemyPathfinding: MonoBehaviour
 
     private static bool isIsland(Vector3Int cell)
     {
+        foreach (Vector3Int island in Islandmaker.Instance.allIslands)
+        {
+            if (cell == island)
+            {
+                return true;
+            }
+        }
         return false;
     }
 
@@ -236,7 +243,7 @@ public class EnemyPathfinding: MonoBehaviour
 
         foreach (BoatController b in TurnManager.Instance.boats)
         {
-            (Vector3Int bpos, int bfacing, int bspeed) = getPhantomLocationFromQueue(b, 2);
+            (Vector3Int bpos, int bfacing, int bspeed) = getPhantomLocationFromQueue(b, b.commandQueue.Count);
             List<Vector3Int> path = getPhantomPath(bpos, bfacing, bspeed, new BoatCommand(BoatCommandType.Nothing));
             if (path.Count == 1)
             {
@@ -516,24 +523,9 @@ public class EnemyPathfinding: MonoBehaviour
             for (int i = 0; i < boats.Count; i++)
             {
                 BoatController boat = boats[i]; 
-                if (boat.commandQueue.Count < 2)
+                while (boat.commandQueue.Count < boat.maxCommands)
                 {
-                    //Get it moving
-                    boat.AddCommand(new BoatCommand(BoatCommandType.Forward));
-                    boat.AddCommand(new BoatCommand(BoatCommandType.Forward));
-                    // Randomly pick turn left or right for 3rd order
-                    System.Random rnd = new System.Random();
-                    int turn = rnd.Next(2);
-                    if (turn == 0)
-                    {
-                        boat.AddCommand(new BoatCommand(BoatCommandType.RotateLeft)); 
-                    } else
-                    {
-                        boat.AddCommand(new BoatCommand(BoatCommandType.RotateRight));
-                    }
-                    print("New orders given " + boat.commandQueue.Count);
-                } else {
-                    (BoatCommand move, FireCommand shoot) = EnemyPathfinding.chooseCommand(boat, scratches); 
+                    (BoatCommand move, FireCommand shoot) = chooseCommand(boat, scratches); 
                     boat.AddCommand(move);
                     boat.AddFireCommand(shoot); 
                 }
@@ -543,11 +535,11 @@ public class EnemyPathfinding: MonoBehaviour
             if (crashes.Count == 0)
             {
                 safeMoves = true; 
-                print("Safe moves found");
+                //print("Safe moves found");
                 break;
             } else
             {
-                print("Moves not safe");
+                //print("Moves not safe");
                 foreach (BoatController b in crashes)
                 {
                     scratches.Add((b, b.commandQueue[b.commandQueue.Count - 1]));
@@ -557,7 +549,7 @@ public class EnemyPathfinding: MonoBehaviour
                     scratches.Clear();
                     foreach (BoatController b in boats)
                     {
-                        (BoatCommand move, FireCommand shoot) = EnemyPathfinding.chooseCommand(b, scratches); 
+                        (BoatCommand move, FireCommand shoot) = chooseCommand(b, scratches); 
                         b.AddCommand(move);
                         b.AddFireCommand(shoot); 
                     }
@@ -569,7 +561,7 @@ public class EnemyPathfinding: MonoBehaviour
 
     public static (BoatCommand, FireCommand) chooseCommand(BoatController boat, List<(BoatController, BoatCommand)> scratches)
     {
-        (Vector3Int pos, int facing, int phantomSpeed) = getPhantomLocationFromQueue(boat, 2);
+        (Vector3Int pos, int facing, int phantomSpeed) = getPhantomLocationFromQueue(boat, boat.commandQueue.Count);
 
         BoatCommand[] moveOptions = {new BoatCommand(BoatCommandType.Forward), new BoatCommand(BoatCommandType.Backward), new BoatCommand(BoatCommandType.RotateLeft), new BoatCommand(BoatCommandType.RotateRight), new BoatCommand(BoatCommandType.Nothing)};
         FireCommand[] fireOptions = {new FireCommand(FireCommandType.FireFrontRight), new FireCommand(FireCommandType.FireFrontLeft), new FireCommand(FireCommandType.FireBackRight), new FireCommand(FireCommandType.FireBackLeft)};
@@ -704,7 +696,7 @@ public class EnemyPathfinding: MonoBehaviour
                 {
                     move = BoatCommandType.Backward; 
                 }
-                else if (phantomSpeed == 1 || phantomSpeed == 2)
+                else if (phantomSpeed == 0 ||phantomSpeed == 1 || phantomSpeed == 2)
                 {
                     // Accelerate if safe
                     List<bool> willCrash = willHitIsland(pos, facing, phantomSpeed, new BoatCommand(BoatCommandType.Forward));
