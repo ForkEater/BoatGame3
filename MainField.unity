@@ -314,7 +314,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 2829232388215122354, guid: 80d5a5dfc474749b3bf255cb92ba021a, type: 3}
+  m_Sprite: {fileID: 7599598799470683859, guid: eb919f5e5e0c58f4a9e03b2a8c368bdb, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -350,7 +350,13 @@ MonoBehaviour:
   rotateLeftArrow: {fileID: 945517489}
   rotateRightArrow: {fileID: 468364758}
   nothingArrow: {fileID: 2132160357}
+  frontRightShot: {fileID: 0}
+  frontLeftShot: {fileID: 0}
+  backRightShot: {fileID: 0}
+  backLeftShot: {fileID: 0}
+  nothingShot: {fileID: 0}
   arrowContainer: {fileID: 948376611}
+  shotContainer: {fileID: 0}
   arrowSpacing: 20
 --- !u!1 &108708805
 GameObject:
@@ -616,6 +622,30 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: e1e23102-46f5-4e55-8894-d2d9b4b6c755
     m_ActionName: 'Movement/NoAction[/Keyboard/space]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 20579396-fc2b-4e99-9699-690930eeac48
+    m_ActionName: 'Movement/ShootFR[/Keyboard/e]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5a63d157-ef41-4eb3-b3eb-6a7be03ef15f
+    m_ActionName: 'Movement/ShootFL[/Keyboard/q]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 17a59c76-9899-4f38-b17c-fa8894922875
+    m_ActionName: 'Movement/ShootBR[/Keyboard/x]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: bd15c11b-6303-4624-ace3-b65df7c126fd
+    m_ActionName: 'Movement/ShootBL[/Keyboard/z]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e1965b2a-6465-41d3-b4c2-c8edd45ee571
+    m_ActionName: 'Movement/NoShoot[/Keyboard/leftShift]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: dbb15d27-3d0d-483c-b771-8dded7311374
+    m_ActionName: 'Movement/ChangeTurn[/Keyboard/rightShift]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: BoatControls
   m_DefaultActionMap: Movement
@@ -633,18 +663,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ae9a94d2cfb7417ab0e531c31240b16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  isEvil: 0
   tilemap: {fileID: 2040174029}
   currentCell: {x: -8, y: -5, z: 0}
   speed: 0
   minSpeed: -2
   maxSpeed: 4
   commandQueue: []
+  fireQueue: []
   maxCommands: 3
+  maxFireCommands: 3
   Selected: 0
   hasCrashed: 0
   hitPoints: 2
   tabOrders: {fileID: 72874583}
   boatImage: {fileID: 277241915}
+  damagedSprite: {fileID: -4130724384287997370, guid: e5fafba2f931a8c4989ea2965800668a, type: 3}
+  destroyedSprite: {fileID: 2782221859340580973, guid: 20e641266a2b5334a99733c64a9566f7, type: 3}
 --- !u!212 &277241915
 SpriteRenderer:
   serializedVersion: 2
@@ -694,7 +729,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 2829232388215122354, guid: 80d5a5dfc474749b3bf255cb92ba021a, type: 3}
+  m_Sprite: {fileID: 7599598799470683859, guid: eb919f5e5e0c58f4a9e03b2a8c368bdb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -757,7 +792,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.99, y: 2.06}
+    oldSize: {x: 1.3, y: 2.07}
     newSize: {x: 0.99, y: 2.06}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -2344,7 +2379,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 2829232388215122354, guid: 80d5a5dfc474749b3bf255cb92ba021a, type: 3}
+  m_Sprite: {fileID: 7599598799470683859, guid: eb919f5e5e0c58f4a9e03b2a8c368bdb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2381,18 +2416,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ae9a94d2cfb7417ab0e531c31240b16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  isEvil: 0
   tilemap: {fileID: 2040174029}
   currentCell: {x: -9, y: 0, z: 0}
   speed: 0
   minSpeed: -2
   maxSpeed: 4
   commandQueue: []
+  fireQueue: []
   maxCommands: 3
+  maxFireCommands: 3
   Selected: 1
   hasCrashed: 0
   hitPoints: 2
   tabOrders: {fileID: 1205252684}
   boatImage: {fileID: 1071665223}
+  damagedSprite: {fileID: -4130724384287997370, guid: e5fafba2f931a8c4989ea2965800668a, type: 3}
+  destroyedSprite: {fileID: 2782221859340580973, guid: 20e641266a2b5334a99733c64a9566f7, type: 3}
 --- !u!114 &1071665227
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2454,6 +2494,30 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: e1e23102-46f5-4e55-8894-d2d9b4b6c755
     m_ActionName: 'Movement/NoAction[/Keyboard/space]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 20579396-fc2b-4e99-9699-690930eeac48
+    m_ActionName: 'Movement/ShootFR[/Keyboard/e]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5a63d157-ef41-4eb3-b3eb-6a7be03ef15f
+    m_ActionName: 'Movement/ShootFL[/Keyboard/q]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 17a59c76-9899-4f38-b17c-fa8894922875
+    m_ActionName: 'Movement/ShootBR[/Keyboard/x]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: bd15c11b-6303-4624-ace3-b65df7c126fd
+    m_ActionName: 'Movement/ShootBL[/Keyboard/z]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e1965b2a-6465-41d3-b4c2-c8edd45ee571
+    m_ActionName: 'Movement/NoShoot[/Keyboard/leftShift]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: dbb15d27-3d0d-483c-b771-8dded7311374
+    m_ActionName: 'Movement/ChangeTurn[/Keyboard/rightShift]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: BoatControls
   m_DefaultActionMap: Movement
@@ -2497,7 +2561,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.99, y: 2.06}
+    oldSize: {x: 1.3, y: 2.07}
     newSize: {x: 0.99, y: 2.06}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -2750,6 +2814,30 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: e1e23102-46f5-4e55-8894-d2d9b4b6c755
     m_ActionName: 'Movement/NoAction[/Keyboard/space]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 20579396-fc2b-4e99-9699-690930eeac48
+    m_ActionName: 'Movement/ShootFR[/Keyboard/e]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5a63d157-ef41-4eb3-b3eb-6a7be03ef15f
+    m_ActionName: 'Movement/ShootFL[/Keyboard/q]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 17a59c76-9899-4f38-b17c-fa8894922875
+    m_ActionName: 'Movement/ShootBR[/Keyboard/x]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: bd15c11b-6303-4624-ace3-b65df7c126fd
+    m_ActionName: 'Movement/ShootBL[/Keyboard/z]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e1965b2a-6465-41d3-b4c2-c8edd45ee571
+    m_ActionName: 'Movement/NoShoot[/Keyboard/leftShift]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: dbb15d27-3d0d-483c-b771-8dded7311374
+    m_ActionName: 'Movement/ChangeTurn[/Keyboard/rightShift]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: BoatControls
   m_DefaultActionMap: Movement
@@ -2767,18 +2855,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ae9a94d2cfb7417ab0e531c31240b16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  isEvil: 0
   tilemap: {fileID: 2040174029}
   currentCell: {x: -8, y: 5, z: 0}
   speed: 0
   minSpeed: -2
   maxSpeed: 4
   commandQueue: []
+  fireQueue: []
   maxCommands: 3
+  maxFireCommands: 3
   Selected: 0
   hasCrashed: 0
   hitPoints: 2
   tabOrders: {fileID: 1272747332}
   boatImage: {fileID: 1122920153}
+  damagedSprite: {fileID: -4130724384287997370, guid: e5fafba2f931a8c4989ea2965800668a, type: 3}
+  destroyedSprite: {fileID: 2782221859340580973, guid: 20e641266a2b5334a99733c64a9566f7, type: 3}
 --- !u!212 &1122920153
 SpriteRenderer:
   serializedVersion: 2
@@ -2828,7 +2921,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 2829232388215122354, guid: 80d5a5dfc474749b3bf255cb92ba021a, type: 3}
+  m_Sprite: {fileID: 7599598799470683859, guid: eb919f5e5e0c58f4a9e03b2a8c368bdb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2891,7 +2984,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.99, y: 2.06}
+    oldSize: {x: 1.3, y: 2.07}
     newSize: {x: 0.99, y: 2.06}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -3030,7 +3123,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 2829232388215122354, guid: 80d5a5dfc474749b3bf255cb92ba021a, type: 3}
+  m_Sprite: {fileID: 7599598799470683859, guid: eb919f5e5e0c58f4a9e03b2a8c368bdb, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3066,7 +3159,13 @@ MonoBehaviour:
   rotateLeftArrow: {fileID: 945517489}
   rotateRightArrow: {fileID: 468364758}
   nothingArrow: {fileID: 2132160357}
+  frontRightShot: {fileID: 0}
+  frontLeftShot: {fileID: 0}
+  backRightShot: {fileID: 0}
+  backLeftShot: {fileID: 0}
+  nothingShot: {fileID: 0}
   arrowContainer: {fileID: 920625659}
+  shotContainer: {fileID: 0}
   arrowSpacing: 20
 --- !u!1 &1272747327
 GameObject:
@@ -3184,7 +3283,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 2829232388215122354, guid: 80d5a5dfc474749b3bf255cb92ba021a, type: 3}
+  m_Sprite: {fileID: 7599598799470683859, guid: eb919f5e5e0c58f4a9e03b2a8c368bdb, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3220,7 +3319,13 @@ MonoBehaviour:
   rotateLeftArrow: {fileID: 945517489}
   rotateRightArrow: {fileID: 468364758}
   nothingArrow: {fileID: 2132160357}
+  frontRightShot: {fileID: 0}
+  frontLeftShot: {fileID: 0}
+  backRightShot: {fileID: 0}
+  backLeftShot: {fileID: 0}
+  nothingShot: {fileID: 0}
   arrowContainer: {fileID: 1956372091}
+  shotContainer: {fileID: 0}
   arrowSpacing: 20
 --- !u!1 &1298766632
 GameObject:
@@ -3252,6 +3357,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b4c2ab90cd18ab418358f03409cbb79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BoatSelection
+  currentTurn: 0
+  previousTurn: 0
 --- !u!4 &1298766634
 Transform:
   m_ObjectHideFlags: 0
@@ -3634,11 +3741,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 240af1c9762f89348a6b395d056d76f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TurnManager
+  tilemap: {fileID: 0}
+  gameMode: 0
   pauseTime: 0.1
   ordersOpen: 1
   boats: []
+  goodBoats: []
+  evilBoats: []
   deadBoats: []
   deadBoatPrefab: {fileID: 720584296}
+  islandHex: {fileID: 0}
 --- !u!114 &1899488467
 MonoBehaviour:
   m_ObjectHideFlags: 0

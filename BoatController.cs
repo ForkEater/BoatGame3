@@ -26,6 +26,9 @@ public class BoatController : MonoBehaviour
     public DisplayOrders tabOrders;
     public SpriteRenderer boatImage;
 
+    public Sprite damagedSprite;
+    public Sprite destroyedSprite;
+
     public void AddCommand(BoatCommand command)
     {
         if (TurnManager.Instance.ordersOpen)
@@ -201,11 +204,19 @@ public class BoatController : MonoBehaviour
         print("boat " + name + " has " + hitPoints + " hit points remaining.");
         if (hitPoints <= 0)
         {
+            if(destroyedSprite != null)
+            {
+                boatImage.sprite = destroyedSprite;
+            }
             TurnManager.Instance.deadBoats.Add(this);
             tabOrders.setDestroyed();
         }
         else if (hitPoints == 1)
         {
+             if(damagedSprite != null)
+            {
+                boatImage.sprite = damagedSprite;
+            }
             tabOrders.setDamaged();
         }
     }
