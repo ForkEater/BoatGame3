@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public enum gameType
 {
@@ -8,8 +9,10 @@ public enum gameType
     LANMultiplayer 
 }
 
+
 public class TurnManager : MonoBehaviour
 {
+    public Tilemap tilemap;
     public static TurnManager Instance;
     private BoatActions actions;
     public gameType gameMode;
@@ -22,6 +25,7 @@ public class TurnManager : MonoBehaviour
     public List<BoatController> evilBoats = new List<BoatController>();
     public List<BoatController> deadBoats = new List<BoatController>();
     public GameObject deadBoatPrefab;
+    public GameObject islandHex;
 
     void Awake()
     {
@@ -32,6 +36,15 @@ public class TurnManager : MonoBehaviour
         {
             callExecuteTurn();
         };
+    }
+
+    void Start()
+    {
+        foreach (Vector3Int island in Islandmaker.Instance.allIslands)
+        {
+            Vector3 spawn = tilemap.GetCellCenterWorld(Vector3Int.RoundToInt(island));
+            GameObject proj = Instantiate(islandHex, spawn, Quaternion.identity);
+        }
     }
 
     public void callExecuteTurn()
@@ -186,6 +199,15 @@ public class TurnManager : MonoBehaviour
                 {
                     boat.takeDamage();
                     boat.hasCrashed = true;
+                }
+                if (boat.CheckIslandCollision())
+                {
+                    if(!boat.hasCrashed){
+                        boat.takeDamage();
+                    }
+                    boat.hasCrashed = true;
+                    boat.speed = 0;
+                    boat.Backward();
                 }
             }
             yield return new WaitForSeconds(pauseTime);

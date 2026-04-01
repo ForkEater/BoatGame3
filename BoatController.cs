@@ -228,6 +228,19 @@ public class BoatController : MonoBehaviour
         }
         return false;
     }
+
+    public bool CheckIslandCollision()
+    {
+        foreach (Vector3Int island in Islandmaker.Instance.allIslands)
+        {
+            if (this.currentCell == island)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public int FiringDirection(FireCommandType cmd)
     {
         switch (cmd)
