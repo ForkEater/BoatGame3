@@ -105,12 +105,7 @@ public class TurnManager : MonoBehaviour
         ordersOpen = false;
         if (gameMode == gameType.Singleplayer)
         {
-            foreach (BoatController boat in evilBoats) 
-            {
-                (BoatCommand move, FireCommand shoot) = EnemyPathfinding.chooseCommand(boat); 
-                boat.AddCommand(move);
-                boat.AddFireCommand(shoot); 
-            }
+            EnemyPathfinding.collectEnemyOrders(evilBoats);
         }
         for (int i = 1; i <= 12; i++)
         {
