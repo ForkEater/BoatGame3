@@ -17,6 +17,9 @@ public class DisplayOrders : MonoBehaviour
 	public GameObject backLeftShot;
 	public GameObject nothingShot;
 
+	public Sprite goodDamagedSprite;
+	public Sprite evilDamagedSprite;
+
 
 	public Transform arrowContainer;
 	public Transform shotContainer;
@@ -137,9 +140,18 @@ public class DisplayOrders : MonoBehaviour
 
     public void setDamaged()
     {
-		print("boat " + boat.name + " has been hit :(");
-        boat.boatImage.color = new Color32(255,75,75,230);
-        tabImage.color = new Color32(255,75,75,230);
+		// print("boat " + boat.name + " has been hit :(");
+        boat.boatImage.color = new Color32(255,0,0,230);
+		if (boat.isEvil)
+		{
+			gameObject.GetComponent<Image>().sprite = evilDamagedSprite;
+			boat.gameObject.GetComponent<SpriteRenderer>().sprite = evilDamagedSprite;
+		} else
+		{
+			gameObject.GetComponent<Image>().sprite = goodDamagedSprite;
+			boat.gameObject.GetComponent<SpriteRenderer>().sprite = goodDamagedSprite;
+		}
+        tabImage.color = new Color32(255,0,0,230);
     }
 
     public void setDestroyed()

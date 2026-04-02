@@ -201,7 +201,7 @@ public class BoatController : MonoBehaviour
     public void takeDamage()
     {
         hitPoints -= 1;
-        print("boat " + name + " has " + hitPoints + " hit points remaining.");
+        //print("boat " + name + " has " + hitPoints + " hit points remaining.");
         if (hitPoints <= 0)
         {
             if(destroyedSprite != null)

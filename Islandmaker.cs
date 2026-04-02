@@ -10,6 +10,8 @@ public class Islandmaker : MonoBehaviour
     Vector3Int islandThree = new Vector3Int();
     Vector3Int islandFour = new Vector3Int();
     Vector3Int islandFive = new Vector3Int();
+    Vector3Int islandSix = new Vector3Int();
+    Vector3Int islandSeven = new Vector3Int();
     public List<Vector3Int> allIslands = new List<Vector3Int>();
 
     void Awake(){
@@ -102,6 +104,8 @@ public class Islandmaker : MonoBehaviour
         islandThree = new Vector3Int(rnd.Next(-4, 4), rnd.Next(5, 11), 0);
         islandFour = new Vector3Int(rnd.Next(-4, 4), rnd.Next(-6, 0), 0);
         islandFive = new Vector3Int(rnd.Next(-4, 4), rnd.Next(0, 6), 0);
+        islandSix = new Vector3Int(rnd.Next(-4, 0), rnd.Next(-7, 7), 0);
+        islandSeven = new Vector3Int(rnd.Next(0, 4), rnd.Next(7, 7), 0);
         allIslands.Add(islandOne);
         allIslands.Add(new Vector3Int(islandOne[0], islandOne[1]+1, 0));
         allIslands.Add(new Vector3Int(islandOne[0], islandOne[1]-1, 0));
@@ -122,8 +126,14 @@ public class Islandmaker : MonoBehaviour
         allIslands.Add(new Vector3Int(islandFive[0], islandFive[1]+1, 0));
         allIslands.Add(new Vector3Int(islandFive[0], islandFive[1]-1, 0));
         allIslands.Add(new Vector3Int(islandFive[0]-1, islandFive[1], 0));
-    
-        
+        allIslands.Add(islandSix);
+        allIslands.Add(new Vector3Int(islandSix[0], islandSix[1]+1, 0));
+        allIslands.Add(new Vector3Int(islandSix[0], islandSix[1]-1, 0));
+        allIslands.Add(new Vector3Int(islandSix[0]-1, islandSix[1], 0));
+        allIslands.Add(islandSeven);
+        allIslands.Add(new Vector3Int(islandSeven[0], islandSeven[1]+1, 0));
+        allIslands.Add(new Vector3Int(islandSeven[0], islandSeven[1]-1, 0));
+        allIslands.Add(new Vector3Int(islandSeven[0]-1, islandSeven[1], 0));
     }
 
 

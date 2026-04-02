@@ -186,14 +186,6 @@ public class TurnManager : MonoBehaviour
                         {
                             boat.Backward();
                         }
-                        if (boat.commandQueue[0].commandType == BoatCommandType.RotateLeft)
-                        {
-                            boat.RotateLeft();
-                        }
-                        else if (boat.commandQueue[0].commandType == BoatCommandType.RotateRight)
-                        {
-                            boat.RotateRight();
-                        }
                         break;
                 }
                 if (!boat.hasCrashed && boat.CheckCollision())
@@ -209,6 +201,17 @@ public class TurnManager : MonoBehaviour
                     boat.hasCrashed = true;
                     boat.speed = 0;
                     boat.Backward();
+                }
+                if (i == 12)
+                {
+                    if (boat.commandQueue[0].commandType == BoatCommandType.RotateLeft)
+                    {
+                        boat.RotateLeft();
+                    }
+                    else if (boat.commandQueue[0].commandType == BoatCommandType.RotateRight)
+                    {
+                        boat.RotateRight();
+                    }
                 }
             }
             yield return new WaitForSeconds(pauseTime);
@@ -252,10 +255,18 @@ public class TurnManager : MonoBehaviour
         yield return new WaitForSeconds(pauseTime*4);
         ordersOpen = true;
         //print("Turn over");
-        foreach (BoatController boat in boats)
+        foreach (BoatController boat in goodBoats)
         {
             boat.AddCommand(new BoatCommand(BoatCommandType.Nothing));
             boat.AddFireCommand(new FireCommand(FireCommandType.Nothing));
+        }
+        if (gameMode != gameType.Singleplayer)
+        {
+            foreach (BoatController boat in evilBoats)
+            {
+                boat.AddCommand(new BoatCommand(BoatCommandType.Nothing));
+                boat.AddFireCommand(new FireCommand(FireCommandType.Nothing));
+            }
         }
     }
     private void CheckWinCondition()
